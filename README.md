@@ -4,7 +4,7 @@ This project is a UAV management system, you can upload the signal file(txt), th
 ## How to run ?
 - 1.Import project into eclipse or intellji.
 - 2.Config jdk>=1.8.
-- 3.Select Application.java run as java application,then you will saw the message in the console.
+- 3.Select Application.java run as java application,then you will see the message in the console.
 - 4.Follow the console message, input a signals file path.
 - 5.Follow the console message, input the msg id.
 - 6.The msg info in the console.
@@ -25,6 +25,6 @@ This project is a UAV management system, you can upload the signal file(txt), th
 
 ## Output
 
-- Valid Message -> PlandId {MsgId} {CurrentCoordinate}, Example: planeA 1 1 2 3.
-- Error Message -> Error {MsgId}, Example: Error 3.
+- Valid Message -> PlaneId {MsgId} {CurrentCoordinate}, Example: planeA 1 1 2 3.
+- Error Message -> Error: {MsgId}, Example: Error: 3.
 - Not Found -> Cannot find {MsgId}, Example: Cannot find 4.

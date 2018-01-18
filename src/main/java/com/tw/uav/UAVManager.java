@@ -41,7 +41,7 @@ public class UAVManager {
             return "Cannot find " + msgId;
         } else {
             Signal signal = plane.getSignalList().get(msgId);
-            return signal.isInvalid() ? "Error " + msgId
+            return signal.isInvalid() ? "Error: " + msgId
                     : plane.getId() + " " + msgId + " " + signal.calculateCurrCoordinate().toString();
         }
     }
