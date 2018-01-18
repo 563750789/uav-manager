@@ -90,11 +90,4 @@ public class UAVManagerTest {
         Assert.assertEquals("Error 5",UAVManager.getPlaneMsg(5));
         Assert.assertEquals("Cannot find 6",UAVManager.getPlaneMsg(6));
     }
-.gitignore
-            .idea/
-    pom.xml
-    src/
-    target/
-    uav-manager.iml
-
 }
