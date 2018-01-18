@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 public class UAVManagerTest {
 
-    private String filePath = "signal.txt";
+    private String filePath = "./signal.txt";
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayInputStream inContent = new ByteArrayInputStream(filePath.getBytes());
 
@@ -42,7 +42,9 @@ public class UAVManagerTest {
 
     @After
     public void destroy() throws IOException {
-        Files.delete(Paths.get(filePath));
+    	if(Files.exists(Paths.get(filePath))) {
+    		Files.delete(Paths.get(filePath));
+    	}       
         System.setOut(System.out);
         System.setIn(System.in);
     }
@@ -80,14 +82,13 @@ public class UAVManagerTest {
     @Test
     public void getMsg() throws IOException {
         UAVManager.initPlane(filePath);
-        Plane plane = UAVManager.plane;
 
         Assert.assertEquals("planeA 0 0 0 0",UAVManager.getPlaneMsg(0));
         Assert.assertEquals("planeA 1 1 2 3",UAVManager.getPlaneMsg(1));
         Assert.assertEquals("planeA 2 0 3 3",UAVManager.getPlaneMsg(2));
         Assert.assertEquals("planeA 3 1 5 6",UAVManager.getPlaneMsg(3));
-        Assert.assertEquals("Error 4",UAVManager.getPlaneMsg(4));
-        Assert.assertEquals("Error 5",UAVManager.getPlaneMsg(5));
+        Assert.assertEquals("Error: 4",UAVManager.getPlaneMsg(4));
+        Assert.assertEquals("Error: 5",UAVManager.getPlaneMsg(5));
         Assert.assertEquals("Cannot find 6",UAVManager.getPlaneMsg(6));
     }
 }

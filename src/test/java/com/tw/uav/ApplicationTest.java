@@ -1,20 +1,20 @@
 package com.tw.uav;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.powermock.api.mockito.PowerMockito;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import static org.mockito.Mockito.when;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import junit.framework.Assert;
+
 
 public class ApplicationTest {
 
-    private String filePath = "signal.txt";
+    private String filePath = "./signal.txt";
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayInputStream inContent = new ByteArrayInputStream(filePath.getBytes());
 
@@ -40,7 +40,9 @@ public class ApplicationTest {
 
     @After
     public void destroy() throws IOException {
-        Files.delete(Paths.get(filePath));
+    	if(Files.exists(Paths.get(filePath))) {
+    		Files.delete(Paths.get(filePath));
+    	}
         System.setOut(System.out);
         System.setIn(System.in);
     }
