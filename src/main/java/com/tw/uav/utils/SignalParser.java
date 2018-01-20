@@ -16,13 +16,14 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class SignalParser {
-    private final static String INITIAL_SIGNAL_PATTERN = "^([a-zA-Z0-9]+)\\s+(-?\\d+)\\s+(-?\\d+)\\s+(-?\\d+)$";
-    private final static String MOVEMENT_SIGNAL_PATTERN = "^([a-zA-Z0-9]+)\\s+(-?\\d+)\\s+(-?\\d+)\\s+(-?\\d+)\\s+(-?\\d+)\\s+(-?\\d+)\\s+(-?\\d+)$";
+    private final static String INITIAL_SIGNAL_PATTERN = "^([a-zA-Z0-9]+)\\s+(-?\\d+)\\s+(-?\\d+)\\s+(-?\\d+)\\s+(\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}:\\d{2})$";
+    private final static String MOVEMENT_SIGNAL_PATTERN = "^([a-zA-Z0-9]+)\\s+(-?\\d+)\\s+(-?\\d+)\\s+(-?\\d+)\\s+(-?\\d+)\\s+(-?\\d+)\\s+(-?\\d+)\\s+(\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}:\\d{2})$";
 
     public static List<Signal> parse(String filePath) throws IOException {
         List<Signal> signalList = new ArrayList<Signal>();
         signalList.add(parseInitialSignal(filePath));
         signalList.addAll(parseMovementSignals(filePath));
+
         return signalList;
     }
 
@@ -35,6 +36,7 @@ public class SignalParser {
             signal.setPlaneId(matcher.group(1));
             signal.setPreCoordinate(new Coordinate(Integer.parseInt(matcher.group(2)),
                     Integer.parseInt(matcher.group(3)), Integer.parseInt(matcher.group(4))));
+            signal.setDateTime(DateUtils.dateTimeParser(matcher.group(5)));
         }
         return signal;
     }
@@ -57,6 +59,7 @@ public class SignalParser {
                     Integer.parseInt(matcher.group(3)), Integer.parseInt(matcher.group(4))));
             signal.setOffset(new Offset(Integer.parseInt(matcher.group(5)), Integer.parseInt(matcher.group(6)),
                     Integer.parseInt(matcher.group(7))));
+            signal.setDateTime(DateUtils.dateTimeParser(matcher.group(8)));
         }
         return signal;
     }

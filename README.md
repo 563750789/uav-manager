@@ -1,5 +1,5 @@
 # uav-manager
-This project is a UAV management system, you can upload the signal file(txt), then will parse the signals and you can find signal msg by id.
+This maven project is a UAV management system, you can upload the signal file(txt), then will parse the signals and you can find signal msg by id.
 
 ## How to run ?
 - 1.Import project into eclipse or intellji.

@@ -4,6 +4,7 @@ package com.tw.uav.models;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Plane {
     private String id;
     private Boolean atFault;
@@ -14,6 +15,9 @@ public class Plane {
         this.atFault = false;
     }
 
+    public Signal getFirstInvalidSignal(){
+        return this.atFault? signalList.isEmpty()? null : signalList.stream().filter(signal -> signal.isInvalid()).findFirst().get() : null;
+    }
     public String getId() {
         return id;
     }

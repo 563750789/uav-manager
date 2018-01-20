@@ -1,10 +1,13 @@
 package com.tw.uav.models;
 
+import java.time.LocalDateTime;
+
 public class Signal {
     private Coordinate preCoordinate;
     private Offset offset;
     private Boolean invalid;
     private String planeId;
+    private LocalDateTime dateTime;
 
     public Signal() {
         this.invalid = false;
@@ -40,6 +43,14 @@ public class Signal {
 
     public void setPlaneId(String planeId) {
         this.planeId = planeId;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     public Coordinate calculateCurrCoordinate() {

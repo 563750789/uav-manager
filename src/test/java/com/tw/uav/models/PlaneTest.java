@@ -8,6 +8,9 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.mockito.Mockito.*;
 
 @RunWith(PowerMockRunner.class)
@@ -54,5 +57,27 @@ public class PlaneTest {
         this.plane.getSignalList().add(signal2);
 
         Assert.assertNull(plane.getCurrCoordinate());
+    }
+
+    @Test
+    public void testGetFirstInvalidSignalIsNull() {
+        plane.setAtFault(false);
+        Assert.assertNull(plane.getFirstInvalidSignal());
+        plane.setAtFault(true);
+        plane.setSignalList(new ArrayList<Signal>());
+        Assert.assertNull(plane.getFirstInvalidSignal());
+    }
+
+    @Test
+    public void testGetFirstInvalidSignal() {
+        plane.setAtFault(true);
+        Signal signal1 = mock(Signal.class);
+        Signal signal2 = mock(Signal.class);
+        this.plane.getSignalList().add(signal1);
+        this.plane.getSignalList().add(signal2);
+        when(signal1.isInvalid()).thenReturn(false);
+        when(signal2.isInvalid()).thenReturn(true);
+
+        Assert.assertEquals(signal2,plane.getFirstInvalidSignal());
     }
 }

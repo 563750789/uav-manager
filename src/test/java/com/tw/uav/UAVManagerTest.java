@@ -26,17 +26,17 @@ public class UAVManagerTest {
         System.setOut(new PrintStream(outContent));
         System.setIn(inContent);
         try(BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath))){
-            writer.write("planeA 0 0 0");
+            writer.write("planeA 0 0 0 2017-12-13 12:12:23");
             writer.newLine();
-            writer.write("planeA 0 0 0 1 2 3");
+            writer.write("planeA 0 0 0 1 2 3 2017-12-13 12:43:21");
             writer.newLine();
-            writer.write("planeA 1 2 3  -1 1 0");
+            writer.write("planeA 1 2 3 -1 1 0 2017-11-13 12:12:23");
             writer.newLine();
-            writer.write("planeA 0 3 3 1 2 3");
+            writer.write("planeA 0 3 3 1 2 3 2017-12-13 11:12:23");
             writer.newLine();
-            writer.write("planeA 0 0 0 1 2 3");
+            writer.write("planeA 0 0 0 1 2 3 2017-12-15 12:12:23");
             writer.newLine();
-            writer.write("planeA 0 3 3 1 2 3");
+            writer.write("planeA 0 3 3 1 2 3 2017-12-17 12:22:23");
         }
     }
 
@@ -87,8 +87,15 @@ public class UAVManagerTest {
         Assert.assertEquals("planeA 1 1 2 3",UAVManager.getPlaneMsg(1));
         Assert.assertEquals("planeA 2 0 3 3",UAVManager.getPlaneMsg(2));
         Assert.assertEquals("planeA 3 1 5 6",UAVManager.getPlaneMsg(3));
-        Assert.assertEquals("Error: 4",UAVManager.getPlaneMsg(4));
-        Assert.assertEquals("Error: 5",UAVManager.getPlaneMsg(5));
+        Assert.assertEquals("Error: 4 2017-12-15T12:12:23",UAVManager.getPlaneMsg(4));
+        Assert.assertEquals("Error: 5 2017-12-15T12:12:23",UAVManager.getPlaneMsg(5));
         Assert.assertEquals("Cannot find 6",UAVManager.getPlaneMsg(6));
+    }
+    @Test
+    public void getAtFault() throws IOException {
+        UAVManager.initPlane(filePath);
+
+        Assert.assertEquals("Error: 4 2017-12-15T12:12:23",UAVManager.getAtFault(4));
+        Assert.assertEquals("Error: 5 2017-12-15T12:12:23",UAVManager.getAtFault(5));
     }
 }

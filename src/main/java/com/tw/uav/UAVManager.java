@@ -41,10 +41,15 @@ public class UAVManager {
             return "Cannot find " + msgId;
         } else {
             Signal signal = plane.getSignalList().get(msgId);
-            return signal.isInvalid() ? "Error: " + msgId
+            return signal.isInvalid() ? getAtFault(msgId)
                     : plane.getId() + " " + msgId + " " + signal.calculateCurrCoordinate().toString();
         }
     }
+
+    public static String getAtFault(int msgId){
+        return "Error: " + msgId +" " + plane.getFirstInvalidSignal().getDateTime().toString();
+    }
+
 
     private static void createPlane(Signal initialSignal) {
         correctInitialSignal(initialSignal);
