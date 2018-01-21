@@ -7,16 +7,18 @@ import java.io.IOException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import static com.tw.uav.UAVManager.*;
+
 public class Application {
 
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
         try {
-            String filePath = UAVManager.scanFilePath(scanner);
+            String filePath = scanFilePath(scanner);
             FileUtils.checkFile(filePath);
-            UAVManager.initPlane(filePath);
-            int msgId = UAVManager.scanMsgId(scanner);
-            System.out.println(UAVManager.getPlaneMsg(msgId));
+            initPlanes(filePath);
+            String planeId = scanPlaneId(scanner);
+            System.out.println(getPlaneStatus(planeId));
         } catch (NoSuchElementException e) {
             System.out.println("Sorry, the signal file is empty, check please.");
         } catch (FileNotFoundException e) {
